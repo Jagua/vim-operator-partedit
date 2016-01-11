@@ -1,0 +1,125 @@
+# vim-operator-partedit
+
+**vim-operator-partedit** is a Vim plugin to provide operators to edit a text
+by **vim-partedit**.
+
+This plugin depends on:
+
+* [vim-operator-user](https://github.com/kana/vim-operator-user)
+* [vim-partedit](https://github.com/thinca/vim-partedit)
+* [context_filetype.vim](https://github.com/Shougo/context_filetype.vim) (Optional)
+* [vim-textobj-context](https://github.com/osyo-manga/vim-textobj-context) (Optional)
+
+Latest: https://github.com/Jagua/vim-operator-partedit
+
+
+
+## Install
+
+
+### A) vim-plug
+
+```vim
+Plug 'Jagua/vim-operator-partedit'
+```
+
+
+### B) NeoBundle
+
+```vim
+NeoBundle 'Jagua/vim-operator-partedit'
+```
+
+
+
+## Key mappings
+
+**`<Plug>(operator-partedit-edit)`**
+
+operator to edit a part of a buffer in another buffer which filetype *is not changed*.
+
+
+**`<Plug>(operator-partedit-edit-contextually)`**
+
+operator to edit a part of a buffer in another buffer which filetype is *automatically set contextually*.
+
+
+## Examples
+
+
+### A) If you want to edit a part of a buffer in another buffer.
+
+write the following key mapping to your .vimrc.
+
+```vim
+nmap ;Pe <Plug>(operator-partedit-edit)
+```
+
+
+#### If you want to edit just a sentence or paragraph in another buffer
+
+Typing `;Peis` in a sentence, you can edit just the sentence in another buffer.
+
+Typing `;Peip` in a paragraph, you can edit just the paragraph in another buffer.
+
+
+#### If you want to edit just folds in another buffer
+
+**(require: [vim-textobj-fold](https://github.com/kana/vim-textobj-fold))**
+
+Typing `;Peiz` in folds, you can edit just the folds in another buffer.
+
+
+#### If you want to edit just a function in another buffer
+
+**(require: [vim-textobj-function](https://github.com/kana/vim-textobj-function))**
+
+Typing `;Peaf` in a function, you can edit just the function in another buffer.
+
+```vim
+function EchoHello()
+  echo 'Hello'
+endfunction
+```
+
+
+
+### B) If you want to edit a part of a buffer in another buffer which filetype is automatically set contextually.
+
+**(require: [context_filetype.vim](https://github.com/Shougo/context_filetype.vim))**
+
+write the following key mapping to your .vimrc.
+
+```vim
+nmap ;pe <Plug>(operator-partedit-edit-contextually)
+```
+
+#### If you want to edit just a part of Lua in a Vim Script in another buffer
+
+**(require: [vim-textobj-context](https://github.com/osyo-manga/vim-textobj-context))**
+
+```vim
+" This is a Vim Script.
+echo 'This is a Vim part.'
+lua <<EOM
+  local str = 'I am a Lua part!'
+  print(str)
+EOM
+```
+
+Typing `;peicx` when a cursor is between `lua <<EOM` and `EOM`, you can edit
+the following code in another buffer, which filetype is automatically set to `lua`.
+
+```lua
+  local str = 'I am a Lua part!'
+  print(str)
+```
+
+Note: Some blank spaces of the beginning of lines are according to `g:partedit#auto_prefix`.
+
+
+
+## Lastly
+
+**vim-operator-partedit** proved to be very useful in writing such a markdown
+as contains some filetypes in :-)
